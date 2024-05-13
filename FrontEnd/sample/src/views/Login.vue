@@ -14,11 +14,17 @@
                 <button type="button" class="btn btn-dark" @click="login">
                     로그인
                 </button>
+                <button type="button" class="btn btn-dark" @click="login2">
+                    로그인2
+                </button>
             </div>
         </div>
     </div>
 </template>
+
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -27,11 +33,37 @@ export default {
     }
   },
   methods: {
-    login () {
-      this.$store.dispath('auth/login', {
-        userId: this.userid,
-        password: this.password
-      })
+    async login () {
+      try {
+        const response = await fetch('/member/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userid: this.userid,
+            password: this.password
+          })
+        })
+        if (!response.ok) {
+          const errorMessage = await response.text()
+          throw new Error(errorMessage)
+        }
+        // 로그인 성공 시 리다이렉트 또는 다른 동작 수행
+      } catch (error) {
+        console.error('로그인 오류:', error)
+        // 에러 처리 로직 추가 (예: 사용자에게 알림)
+      }
+    },
+    async login2 () {
+      axios
+        .get('/member/test')
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

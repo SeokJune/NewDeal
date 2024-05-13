@@ -69,6 +69,6 @@
 	<tx:annotation-driven />
 	
 	<!-- context:component-scan: 지정된 패키지에서 컴포넌트를 찾아 빈(bean)으로 등록하는 설정 -->
-	<context:component-scan base-package="com.basic.repositories" />
-	<context:component-scan base-package="com.basic.services" />
+	<context:component-scan base-package="com.sample.repositories" />
+	<context:component-scan base-package="com.sample.services" />
 </beans>

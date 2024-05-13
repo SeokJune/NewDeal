@@ -68,7 +68,7 @@
 	<!-- XSS(Cross Site Scripting) 필터 설정 -->
 	<filter>
 		<filter-name>XSSFilter</filter-name>
-		<filter-class>com.basic.commons.xss.XSSFilter</filter-class>
+		<filter-class>com.sample.commons.xss.XSSFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>XSSFilter</filter-name>
