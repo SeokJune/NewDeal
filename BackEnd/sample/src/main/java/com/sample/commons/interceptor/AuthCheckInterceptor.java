@@ -8,6 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/*
+ * Spring의 HandlerInterceptor를 구현한 AuthCheckInterceptor 클래스
+ * 요청이 컨트롤러에 도달하기 전에 실행되어 인증을 체크하고 필요한 경우 처리를 수행
+ */
 public class AuthCheckInterceptor implements HandlerInterceptor {
 	// Logger
 	private final Logger logger = LogManager.getLogger(this.getClass());
@@ -30,14 +34,14 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
 				response.flushBuffer();
 				return false;
 			}
-			
+
 			// 세션에 진증 정보가 있는지 확인
 			Object authInfo = session.getAttribute("usrMnuAtrt");
 			if (authInfo != null) {
 				return true;
 			}
 		}
-		
+
 		// HTTP 헤더에서 axios 요청인지 확인
 		String axiosHeader = request.getHeader("X-Requested-With");
 		if ("XMLHttpRequest".equals(axiosHeader)) {
