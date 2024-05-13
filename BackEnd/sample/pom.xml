@@ -1,0 +1,353 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- ==================================================================================================== -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.newdeal</groupId>
+	<artifactId>sample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>sample</name>
+	<packaging>war</packaging>
+	<description>샘플</description>
+	<!-- ==================================================================================================== -->
+	<!-- 속성 (버전 정보, Encoding 정보) 관리 -->
+	<properties>
+		<!-- Build File Name -->
+		<filename>ROOT</filename>
+		<!-- Apache Eclipse Compiler Plugin Version -->
+		<eclipse-plugin-version>2.10</eclipse-plugin-version>
+		<!-- Apache Maven Compiler Plugin Version -->
+		<compiler-plugin-version>3.8.1</compiler-plugin-version>
+		<!-- Apache Maven WAR Plugin Version -->
+		<war-plugin-version>3.4.0</war-plugin-version>
+		<!-- Java Version: openJDK 11 -->
+		<jdk-version>11</jdk-version>
+		<!-- Encoding -->
+		<encoding-type>UTF-8</encoding-type>
+		<!-- ==================================================================================================== -->
+		<!-- Spring Framework Version -->
+		<spring-framework-version>6.1.6</spring-framework-version>
+		<!-- ==================================================================================================== -->
+		<!-- Web Related -->
+		<!-- Jakarta Servlet Version -->
+		<servlet-version>6.0.0</servlet-version>
+		<!-- ==================================================================================================== -->
+		<!-- Database Related -->
+		<!-- MySQL Version -->
+		<mysql-version>8.0.33</mysql-version>
+		<!-- HikariCP Version -->
+		<hikaricp-version>5.1.0</hikaricp-version>
+		<!-- Mybatis Version -->
+		<mybatis-version>3.5.16</mybatis-version>
+		<!-- Mybatis Spring Version -->
+		<mybatis-spring-version>3.0.3</mybatis-spring-version>
+		<!-- ==================================================================================================== -->
+		<!-- WebSocket Related -->
+		<!-- ==================================================================================================== -->
+		<!-- File Related -->
+		<!-- Apache Commons IO Version -->
+		<commons-io-version>2.16.1</commons-io-version>
+		<!-- Apache Commons FileUpload Version -->
+		<commons-fileupload-version>1.5</commons-fileupload-version>
+		<!-- Apache POI Version -->
+		<poi-version>5.2.5</poi-version>
+		<!-- ==================================================================================================== -->
+		<!-- JSON Related -->
+		<!-- Gson Version -->
+		<gson-version>2.10.1</gson-version>
+		<!-- Jackson Version -->
+		<jackson-version>2.17.1</jackson-version>
+		<!-- ==================================================================================================== -->
+		<!-- Mail Related -->
+		<!-- Jakarta Mail API Version -->
+		<mail-vaerion>2.1.3</mail-vaerion>
+		<!-- ==================================================================================================== -->
+		<!-- Jakarta Annotaion Version -->
+		<annotation-version>3.0.0</annotation-version>
+		<!-- Jakarta Dependency Injection Version-->
+		<inject-version>2.0.1</inject-version>
+		<!-- Lombok Version -->
+		<lombok-version>1.18.32</lombok-version>
+		<!-- AspectJ Weaver Library Version -->
+		<aspectj-weaver-version>1.9.22</aspectj-weaver-version>
+		<!-- SLF4J, LOG4J Library Version -->
+		<slf4j-version>2.0.9</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<!-- JUnit Jupiter API Version -->
+		<junit-version>5.10.2</junit-version>
+		<!-- Bouncy Castle Provider(18on) Version -->
+		<bcprov-version>1.78.1</bcprov-version>
+	</properties>
+	<!-- ==================================================================================================== -->
+	<!-- 외부 라이브러리 의존성 관리 -->
+	<dependencies>
+		<!-- ==================================================================================================== -->
+		<!-- Spring Context: 기본적인 컨테이너 제공 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-framework-version}</version>
+			<exclusions>
+				<!-- Commons Logging의 의존성 제거 -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- Web Related -->
+		<!-- Spring Web: 웹 애플리케이션 개발에 필요한 기능을 제공 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- Spring Web MVC: Model-View-Controller(MVC) 아키텍처를 구현하는 데 사용 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- Servlet: 자바 웹 애플리케이션에서 동적인 컨텐츠를 생성하고 관리하기 위한 자바 클래스 -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${servlet-version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- Database Related -->
+		<!-- MySQL: MySQL JDBC 드라이버 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-version}</version>
+		</dependency>
+		<!-- HikariCP, commons-dbcp 중 선택 / c3p0 -->
+		<!-- HikariCP: 경량화된 커넥션 풀 라이브러리 -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${hikaricp-version}</version>
+		</dependency>
+		<!-- Spring JDBC: 데이터베이스와의 연동을 지원하는 스프링 JDBC 모듈 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- Mybatis: 데이터베이스 연동을 위한 SQL 매핑 프레임워크 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis-version}</version>
+		</dependency>
+		<!-- Mybatis Spring: MyBatis와 Spring 프레임워크를 함께 사용할 수 있도록 통합된 모듈 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring-version}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- WebSocket Related -->
+		<!-- Spring WebSocket -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- Spring Messaging -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- File Related -->
+		<!-- Apache Commons IO: 파일 및 디렉토리 조작, 스트림 처리 등을 위한 라이브러리(파일 복사, 이동, 삭제 등의 파일 시스템 작업을 수행) -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io-version}</version>
+		</dependency>
+		<!-- Apache Commons FileUpload: 파일 업로드를 위한 라이브러리(멀티파트 요청을 처리하고 파일을 서버로 업로드하는 기능을 제공) -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload-version}</version>
+		</dependency>
+		<!-- Apache POI Common: ava에서 Microsoft Office 형식 파일(예: Excel, Word, PowerPoint)을 읽고 쓰는 데 사용되는 라이브러리 -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi-version}</version>
+		</dependency>
+		<!-- Apache POI API Based On OPC and OOXML Schemas: Office Open XML 형식을 처리하는 데 사용. 이것은 Excel 및 Word의 최신 버전과 호환되는 포맷 -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi-version}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- JSON Related -->
+		<!-- Gson: Google에서 개발한 JSON 라이브러리 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson-version}</version>
+		</dependency>
+		<!-- Jackson Core: Jackson의 핵심 모듈이며, JSON 파싱 및 생성에 필요한 기본 기능을 제공 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<!-- Jackson Databind: Java 객체와 JSON 데이터 간의 변환을 담당하는 모듈(직렬화, 역직렬화) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<!-- Jackson Annotations: Jackson에서 사용되는 주요 어노테이션을 포함하는 모듈 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- Mail Related -->
+		<!-- Spring Context Support: 스프링 프레임워크에서 제공하는 메일 관련 지원 기능을 활용할 경우 필요 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- JavaMail API(javax.mail): 메일 전송에 필요한 기본적인 Java API -->
+		<dependency>
+			<groupId>jakarta.mail</groupId>
+			<artifactId>jakarta.mail-api</artifactId>
+			<version>${mail-vaerion}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+		<!-- 기타 -->
+		<!-- ORM(Object-Relational Mapping): 객체 지향 프로그래밍 언어와 관계형 데이터베이스 간의 데이터를 변환하고 매핑 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring-framework-version}</version>
+		</dependency>
+		<!-- Jakarta Annotations API: EE 9부터 사용되는 새로운 버전(EE 8까지는 Javax) -->
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>${annotation-version}</version>
+		</dependency>
+		<!-- Jakarta Dependency Injection: Java EE의 의존성 주입(Dependency Injection)을 위한 스펙 중 하나 -->
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>${inject-version}</version>
+		</dependency>
+		<!-- Lombok: Getter, Setter, Equals 및 ToString과 같은 메서드를 자동으로 생성하는 애노테이션을 제공 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok-version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- AspectJ Weaver: AspectJ(Java 언어를 기반으로 한 AOP(Aspect-Oriented Programming)를 지원하는 프레임워크)의 핵심 기능 제공 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj-weaver-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Logging: 이벤트나 상태 정보를 기록 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+		<!-- JUnit Jupiter API: Java 언어용으로 작성된 오픈 소스 테스팅 프레임워크. 주로 단위 테스트를 작성하고 실행하는 데 사용 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Bouncy Castle Provider(18on): 자바용 암호화 및 보안 라이브러리. JDK 1.8부터 호환 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk18on</artifactId>
+			<version>${bcprov-version}</version>
+		</dependency>
+		<!-- ==================================================================================================== -->
+	</dependencies>
+	<!-- Build 설정 -->
+	<build>
+		<finalName>${finalname}</finalName>
+		<plugins>
+			<!-- 이클립스 플러그인 설정: Dynamic Web Module를 사용하기 위해 설정.... 하지만 사용할려면 JDK 버전을 8이 아닌 11이상으로... 11이상은 유료라 openJDK 사용해야됨 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${eclipse-plugin-version}</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>
+							org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>
+							org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<!-- 컴파일러 플러그인 설정 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler-plugin-version}</version>
+				<configuration>
+					<source>${jdk-version}</source>
+					<target>${jdk-version}</target>
+					<encoding>${encoding-type}</encoding>
+					<!-- 경고 메시지 관련 설정 -->
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<!-- 웹 어플리케이션 빌드를 위한 플러그인 설정 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${war-plugin-version}</version>
+				<configuration>
+					<warName>${filename}</warName>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
