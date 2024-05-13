@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Root Context: spring 웹 애플리케이션의 전반적인 설정과 공유 리소스를 정의, 이 파일에 정의된 빈(bean)은 해당 웹 애플리케이션의 모든 컴포넌트에서 공유하여 사용 -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- dataSource: 데이터베이스 연결을 위한 빈(bean) -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<!-- 사용할 JDBC 드라이버 클래스: MySQL -->
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<!-- HikariCP 풀의 최대 연결 수 -->
+		<property name="maximumPoolSize" value="20"></property>
+		<!-- MySQL 데이터베이스에 연결하기 위한 JDBC URL: jdbc:mysql://localhost:3306/your_database_name -->
+		<property name="jdbcUrl" value="jdbc:mysql://13.125.198.29:3306/lsj"></property>
+		<!-- MySQL 데이터베이스에 연결할 때 사용할 사용자명 -->
+		<property name="username" value="root"></property>
+		<!-- MySQL 데이터베이스에 연결할 때 사용할 암호 -->
+		<property name="password" value="hwangkh704!"></property>
+	</bean>
+	
+	<!-- sqlSessionFactory: MyBatis 프레임워크에서 SQL을 실행하기 위한 빈(bean) -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"></property>
+	</bean>
+	
+	<!-- sqlSession: MyBatis 프레임워크에서 SQL을 실행하기 위한 빈(bean) -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- transactionManager: 트랜잭션 관리를 위한 빈(bean) -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- multipartResolver: 파일 업로드를 처리하기 위한 빈(bean) -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
+	
+	<!-- mailSender: 이메일 발송을 위한 빈(bean) -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- 이메일을 보낼 SMTP 서버의 호스트 / Gmail의 SMTP 서버 -->
+		<property name="host" value="smtp.gmail.com" />
+		<!-- SMTP 서버에 연결할 때 사용할 포트 / Gmail의 SMTP 포트 -->
+		<property name="port" value="587" />
+		<!-- SMTP 서버에 로그인할 때 사용할 사용자 이름 / Gmail 계정 -->
+		<property name="username" value="" />
+		<!-- SMTP 서버에 로그인할 때 사용할 비밀번호 / Gmail 비밀번호 -->
+		<property name="password" value="" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- tx:annotation-driven: Spring의 어노테이션 기반 트랜잭션 처리를 사용하기 위한 설정 -->
+	<tx:annotation-driven />
+	
+	<!-- context:component-scan: 지정된 패키지에서 컴포넌트를 찾아 빈(bean)으로 등록하는 설정 -->
+	<context:component-scan base-package="com.basic.repositories" />
+	<context:component-scan base-package="com.basic.services" />
+</beans>
