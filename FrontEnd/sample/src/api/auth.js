@@ -1,13 +1,8 @@
-// import http from '@/api/http'
-import axios from 'axios'
+import http from '@/api/http'
 
 export function Login (userid, password) {
   console.log('123')
-  // return http.post('/member/login', {
-  //   userid,
-  //   password
-  // })
-  axios.post('/member/login', {
+  return http.post('/member/login', {
     userid,
     password
   })
