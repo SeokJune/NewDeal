@@ -13,6 +13,7 @@ public class MemberDAO {
 	
 	// 로그인
 	public int login(MemberDTO memberDTO) {
-		return db.insert("Member.login", memberDTO);
+		System.out.println("db");
+		return db.selectOne("Member.login", memberDTO);
 	}
 }

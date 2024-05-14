@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	public String home() {
-		System.out.println("ASD");
 		return "index.html";
 	}
 }
