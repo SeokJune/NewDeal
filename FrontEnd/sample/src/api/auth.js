@@ -1,9 +1,9 @@
 import http from '@/api/http'
 
-export function Login (userid, password) {
+export function Login (userId, password) {
   console.log('123')
   return http.post('/member/login', {
-    userid,
+    userId,
     password
   })
 }

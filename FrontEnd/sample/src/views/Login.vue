@@ -41,7 +41,7 @@ export default {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            userid: this.userid,
+            userId: this.userid,
             password: this.password
           })
         })
@@ -50,6 +50,7 @@ export default {
           throw new Error(errorMessage)
         }
         // 로그인 성공 시 리다이렉트 또는 다른 동작 수행
+        console.log('sssss')
       } catch (error) {
         console.error('로그인 오류:', error)
         // 에러 처리 로직 추가 (예: 사용자에게 알림)
